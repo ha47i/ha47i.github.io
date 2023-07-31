@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>需要Code | HsShiQi的Ucraft二维码</title>
+        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<script>
+    function redirectToURL() {
+        // 获取输入框的值
+        var inputText = document.getElementById("input").value.toLowerCase();
+        
+        // 生成一个随机数作为查询参数
+        var randomParam = '?' + Math.random().toString(36).substring(7);
+        
+        // 读取txt文本文件时添加随机查询参数
+        fetch('https://ha47i.github.io/mcewm/ucraft/url.txt' + randomParam)
+            .then(response => response.text())
+            .then(data => {
+                // 将每行文本分割成数组
+                var lines = data.split('\n');
+                
+                // 遍历每行
+                for (var i = 0; i < lines.length; i++) {
+                    // 分割每行的内容和网址
+                    var parts = lines[i].split(' ');
+                    var content = parts[0].toLowerCase();
+                    var url = parts[1];
+                    
+                    // 找到匹配的行并进行跳转
+                    if (content === inputText) {
+                        window.location.href = url;
+                        return;
+                    }
+                }
+                
+                // 若找不到匹配的行，则给出提示
+                alert('似乎没有发现您的Code指向的目标呢。打错字了？或者压根没输入？又或者说...你在乱打一通？');
+            });
+    }
+    
+    document.addEventListener('keydown', function(event) {
+        var key = event.which || event.keyCode;
+        
+        // 按下回车键（key code 为 13）时执行 redirectToURL 函数
+        if (key === 13) {
+            redirectToURL();
+        }
+    });
+</script>
+    </head>
+    
+    <body><br>
+        <div class="container">
+            <h3>⧉ 需要Code来访问</h3> <h9>
+                *ᴴᵉˡˡᵒᴹⁱⁿᵉᶜʳᵃᶠᵗ
+            </h9>
+            <div class="alert alert-info" role="alert"><span>与目标URL无法建立连接！我们需要Code来判断你的URL！您要输入的Code就在您扫描的二维码的右下角！就是那个「Code：xxx」里的“xxx”！</span>
+            </div> <input class="form-control" id="input" placeholder="请输入Code以继续 ......"> <button onclick="redirectToURL()" class="btn btn-primary btn-block mt-2">我输入完了</button><button class="btn btn-outline-primary btn-block" disabled>提示: Code大部分为3位数字</button><button class="btn btn-outline-primary btn-block" disabled>Script by ChatGPT.</button><button class="btn btn-outline-primary btn-block" disabled>Pages&amp;Build by HaShiQi79461.</button><!--<button class="btn btn-outline-primary btn-block" disabled>*页面与二维码搭建：HaShiQi79461.*</button><button class="btn btn-outline-primary btn-block" disabled>*Script脚本由HaShiQi&amp;ChatGPT.共同编写*</button>-->
+        </div>
+    </body>
+</html>
