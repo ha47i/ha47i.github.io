@@ -1,0 +1,58 @@
+.container {
+    padding: 2.8rem 1.6rem;
+}
+
+.container .intro {
+    line-height: 30px;
+}
+
+.container .table > tbody > tr {
+    font-size: 80%;
+}
+
+.carousel-item img {
+    width: 100%;
+    max-width: 100%;
+}
+
+.static-ads {
+    padding: 0 15px 0 30px;
+    margin-top: .3rem;
+    font-size: 90%;
+}
+
+.static-ads img {
+    width: 100%;
+}
+
+.static-ads .col-4, .static-ads .col-8 {
+    padding-left: 0;
+    padding-right: 0;
+}
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0; 
+    }
+    50% {
+        opacity: 0; 
+    }
+    100% {
+        opacity: 1; 
+    }
+}
+
+@-webkit-keyframes fadeIn2 {
+    0% {
+        opacity: 0; 
+        transform: translateY(100%);
+    }
+    50% {
+        opacity: 0; 
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1; 
+        transform: translateY(0%);
+    }
+}
+
