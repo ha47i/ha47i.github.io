@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>简体繁體互转</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="./js.js"></script>
+</head>
+
+<body>
+    <br/>
+    <div class="container">
+        <h3>⧉ 简体繁體互转</h3>
+        <hr>
+    <div class="alert alert-info" role="alert">
+        <span>转换使用本地JavaScript，不会上传云端。请注意，只转换字不转换理解。</span>
+    </div><div>
+    <textarea class="form-control" id="txt" rows="8" placeholder="请输入中文..."></textarea>
+    <button onclick="convert(0)" class="btn btn-primary btn-block mt-2">繁体 > 简体</botton>
+    <button onclick="convert(1)" class="btn btn-primary btn-block mt-2">簡體 > 繁體</botton>
+    <button id="copyButton" onclick="copyText()" class="btn btn-primary btn-block mt-2">复制文本</botton>
+    </div><hr>
+    <button class="btn btn-outline-primary btn-block" disabled>Pages&Build by HaShiQi.</botton>
+    </div><hr>
+</body>
+</html>
