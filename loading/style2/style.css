@@ -1,0 +1,42 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.text {
+  font-size: 70px;
+  color: #333333;
+  text-align: center;
+  margin-top: 50px;
+  font-family: 'i', sans-serif; /* 使用自定义字体 */
+}
+
+.logo-img {
+  width: 40%;
+  border-radius: 20%;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* 引入自定义字体 */
+@font-face {
+	font-family: 'i';
+	src: url('i.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
