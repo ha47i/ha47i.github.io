@@ -11,7 +11,7 @@ body {
 }
 
 .text {
-  font-size: 70px;
+  font-size: 80px;
   color: #333333;
   text-align: center;
   margin-top: 50px;
@@ -19,7 +19,7 @@ body {
 }
 
 .logo-img {
-  width: 40%;
+  width: 34%;
   border-radius: 20%;
 }
 
