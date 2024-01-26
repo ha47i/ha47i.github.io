@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>请填写通行码...</title>
+    <link rel="stylesheet" href="css.css">
+
+<script>
+    function redirectToURL() {
+        // 获取输入框的值
+        var inputText = document.getElementById("input").value.toLowerCase();
+        
+        // 生成一个随机数作为查询参数
+        var randomParam = '?' + Math.random().toString(36).substring(7);
+        
+        // 读取txt文本文件时添加随机查询参数
+        fetch('https://ha47i.github.io/mcewm/ucraft2024winter/url.txt' + randomParam)
+            .then(response => response.text())
+            .then(data => {
+                // 将每行文本分割成数组
+                var lines = data.split('\n');
+                
+                // 遍历每行
+                for (var i = 0; i < lines.length; i++) {
+                    // 分割每行的内容和网址
+                    var parts = lines[i].split(' ');
+                    var content = parts[0].toLowerCase();
+                    var url = parts[1];
+                    
+                    // 找到匹配的行并进行跳转
+                    if (content === inputText) {
+                        window.location.href = url;
+                        return;
+                    }
+                }
+                
+                // 若找不到匹配的行，则提示404
+                window.location.href = './404.html';
+            });
+    }
+    
+    function gofaq() {
+        window.location.href = './faq.html';
+    }
+    
+    document.addEventListener('keydown', function(event) {
+        var key = event.which || event.keyCode;
+        
+        // 按下回车键（key code 为 13）时执行 redirectToURL 函数
+        if (key === 13) {
+            redirectToURL();
+        }
+    });
+</script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome</h1>
+        <div class="form">
+            <input type="text" placeholder="填写通行码" id="input">
+            <button class="btn-login" onclick="redirectToURL()">-继续-</button>
+            <button class="btn-faq" onclick="gofaq()">FAQ</button>
+        </div>
+    </div>
+    <ul class="bg-squares">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>
+
+<script src="js.js"></script>
