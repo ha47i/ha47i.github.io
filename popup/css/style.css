@@ -431,8 +431,8 @@ h5 {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    /*background-image: url(https://pic1.imgdb.cn/item/6790f3aad0e0a243d4f6aa66.webp);*/
-    background-image: url(../bg.jpg);
+    background-image: url(https://pic1.imgdb.cn/item/6790f3aad0e0a243d4f6aa66.webp);
+    /*background-image: url(../bg.jpg);*/
     opacity: 1; /* 初始透明 */
     transform: scale(1); /* 初始缩放 */
     transition: opacity 1s, transform 1.5s ease-out;
