@@ -1,0 +1,155 @@
+
+.journey-container-wrapper {
+    position: relative;
+    left: 0;
+    margin-top: 30px;
+    width: 100%;
+    overflow: hidden
+}
+
+.journey-container-wrapper * {
+    transition: .25s
+}
+
+#journey-container {
+    display: flex;
+    padding: 0 80px 10px 80px;
+    white-space: nowrap;
+    overflow-y: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch
+}
+
+#journey-container::-webkit-scrollbar {
+    height: 5px
+}
+
+#journey-container div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 5px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: var(--black-a-5);
+    text-align: left
+}
+
+.journey-item-date,
+.journey-item-fade-out {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700
+}
+
+.journey-item-date {
+    margin-bottom: 3px;
+    color: var(--txt-b-pure)
+}
+
+.journey-item-content {
+    margin: 0;
+    color: var(--black-a-80);
+    font-size: 14px
+}
+
+.journey-item-fade-out {
+    color: var(--black-a-20)
+}
+
+.journey-mask {
+    position: absolute;
+    top: 0;
+    width: 80px;
+    height: 100%;
+    pointer-events: none
+}
+
+.journey-mask.left {
+    left: 0;
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0), var(--bg-w-pure))
+}
+
+.journey-mask.right {
+    left: calc(100% - 80px);
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), var(--bg-w-pure))
+}
+
+
+footer {
+    padding: 100px 0 95px
+}
+
+footer div {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    vertical-align: top;
+    padding: 0 50px
+}
+
+footer p {
+    margin-top: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff
+}
+
+footer a {
+    display: inline-block;
+    margin-bottom: 5px;
+    border-bottom: 1px solid transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px
+}
+
+footer a:hover {
+    border-color: #fff
+}
+
+footer a:active {
+    opacity: .6
+}
+
+#copyright p {
+    font-size: 12px
+}
+
+.legal-text-container {
+    position: relative;
+    top: -6px
+}
+
+.legal-text-container a {
+    color: rgba(255, 255, 255, .5) !important
+}
+
+.legal-text-container a:active,
+.legal-text-container a:hover {
+    border-color: rgba(255, 255, 255, .5)
+}
+
+
+@media screen and (max-width:600px) {
+    h1 {
+        font-size: 66px
+    }
+
+    h2 {
+        font-size: 14px;
+        line-height: 12px
+    }
+
+    footer {
+        padding-bottom: 60px
+    }
+
+    footer div {
+        padding: 0 30px 30px 30px
+    }
+
+    #copyright {
+        text-align: center
+    }
+}
