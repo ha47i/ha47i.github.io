@@ -1,0 +1,106 @@
+.width {
+    max-width: 570px;
+    margin: 0 auto
+}
+
+.apage {
+    padding: 2.8rem 1.6rem;
+    font-family: Arial;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000;
+    text-align: left;
+    background-color: #fff
+}
+
+.h3,h3 {
+    font-size: 1.75rem;
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2
+}
+
+.hr,hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1)
+}
+
+.p,p {
+    overflow-wrap: break-word
+}
+
+.aicon {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    margin-bottom: 0.226em;
+    margin-right: 0.2em;
+    margin-left: 0.1em
+}
+
+.aarrow {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    margin-bottom: 0.226em;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+}
+
+.ahref {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #0080ff
+}
+
+.ahref2 {
+    text-decoration: none;
+    cursor: pointer;
+    color: #0080ff
+}
+
+.awarn {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #C02424
+}
+
+.asvg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    margin-bottom: 0.226em;
+    margin-right: 0.06em;
+    margin-left: 0.15em
+}
+
+.aimg {
+    width: 90%
+}
+
+@media (prefers-color-scheme: light) {
+    .apage {
+        background-color: #ffffff;
+        color: #212529;
+    }
+    .hr,hr {
+       border-top: 1px solid rgba(0, 0, 0, .1)
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .apage {
+        background-color: #0e0e0e;
+        color: #eeeeee;
+    }
+    .hr,hr {
+       border-top: 1px solid rgba(255, 255, 255, .1)
+    }
+}

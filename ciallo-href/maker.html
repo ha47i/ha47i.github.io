@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciallo生成器</title>
+</head>
+<body>
+
+<div>
+  <textarea id="inputText" placeholder="请输入要转到网址"></textarea>
+  <button onclick="encodeText()">编码</button>
+  <p id="encodedText">output</p>
+  <textarea id="11">output</textarea>
+</div>
+<div>
+  <input type="checkbox" id="debugSwitch">
+  <label for="debugSwitch">添加 &debug 后缀</label>
+  <button onclick="copyText()" id="copyb">复制文本</button>
+  <button id="openLinkButton">打开结果</button>
+</div>
+
+<script>
+function encodeText() {
+  var inputText = document.getElementById('inputText').value;
+  var encodedText = btoa(inputText); // Base64 编码
+  var prefixedText = "https://ha47i.github.io/ciallo-href/ciallo.html?goref=" + encodedText; // 添加前缀
+  if (document.getElementById('debugSwitch').checked) {
+    prefixedText += "&debug"; // 如果开关打开，添加 "&debug" 后缀
+  }
+  document.getElementById('encodedText').innerText = prefixedText;
+  document.getElementById('11').innerText = prefixedText;
+}
+
+function copyText() {
+    var textField = document.getElementById("11");
+    textField.select();
+    document.execCommand("copy");
+    document.getElementById("copyb").innerText = "--「复制成功」--"; // 按钮文字修改
+    setTimeout(function() {
+        document.getElementById("copyb").innerText = "复制文本"; // 三秒钟后恢复原始文字
+    }, 3000); // 3000毫秒即3秒
+}
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 获取按钮元素
+        var openLinkButton = document.getElementById('openLinkButton');
+        
+        // 为按钮添加点击事件监听器
+        openLinkButton.addEventListener('click', function() {
+            // 获取含有URL的段落元素
+            var encodedTextElement = document.getElementById('encodedText');
+            
+            // 从段落元素中提取URL
+            var url = encodedTextElement.textContent;
+            
+            // 在新窗口中打开URL
+            window.open(url, '_blank');
+        });
+    });
+</script>
+
+</body>
+</html>

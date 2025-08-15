@@ -1,0 +1,89 @@
+.boddy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
+    margin: 0;
+}
+
+.typewriter {
+    text-align: center;
+    /* 使文字居中 */
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.5;
+    font-family: Arial;
+    user-select: none;
+    max-width: calc(100% - 16px);
+    /* 限制最大宽度 */
+    word-wrap: break-word;
+    /* 允许换行 */
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    background: -webkit-linear-gradient(left, #F596AA, #66CCFF 25%, #F596AA 50%, #66CCFF 75%, #F596AA);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-size: 200% 100%;
+    -webkit-animation: runs 3s infinite linear;
+}
+
+.typewriter h1 {
+    display: inline;
+    /* 让文字和光标在同一行 */
+}
+
+#cursor {
+    font-weight: bold;
+    /* 可以加粗光标 */
+    animation: blink 0.7s infinite;
+    /* 闪烁效果 */
+    margin-left: 2px;
+    /* 光标和文字间距 */
+    font-size: 2em;
+    /* 确保光标大小与文本相同 */
+    left: calc(100% + 2px);
+    /* 在文字后面 */
+    background: #A9B3D7;
+    /* 与文字一致的渐变 */
+    -webkit-background-clip: text;
+    /* 背景剪裁为文字 */
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+        /* 完全可见 */
+    }
+
+    20%,
+    80% {
+        opacity: 1;
+        /* 仍然可见 */
+    }
+
+    30%,
+    70% {
+        opacity: 0;
+        /* 完全消失 */
+    }
+
+    40%,
+    60% {
+        opacity: 0;
+        /* 确保在这些时间点不可见 */
+    }
+}
+
+@-webkit-keyframes runs {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}

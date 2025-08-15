@@ -1,0 +1,119 @@
+<!-- 纯原创！禁止盗用！-->
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>中转页 | Ciallo～(∠・ω&lt;)⌒☆</title>
+        <!-- <link rel="stylesheet" href="css.css"> -->
+        <style>.bodyy{padding:2.8rem 1.6rem;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-size:1.8rem;line-height:1.5;background-color:#fff;max-width:600px;margin:0 auto}.divt{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%}.title{user-select:none;cursor:pointer;text-decoration:none;font-weight:bold;text-align:center;background:-webkit-linear-gradient(left,#F596AA,#66CCFF 25%,#F596AA 50%,#66CCFF 75%,#F596AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;-webkit-background-size:200% 100%;-webkit-animation:runs 3s infinite linear}@-webkit-keyframes runs{0%{background-position:0 0}100%{background-position:100% 0}}</style>
+        <!-- <link rel="stylesheet" href="toast.css"> -->
+        <style>.toast_on{width:100%;position:fixed;top:0.56em;left:50%;transform:translate(-50%,-0%);z-index:9999;background-color:rgba(28,28,28,0);animation:fadeInOut 4s infinite}@keyframes fadeInOut{0%{opacity:0}50%{opacity:1}100%{opacity:0}}.toast_off{display:none}.to_text{text-align:center;font-size:0.5em;color:#5B5B5B}.to_t1{margin-left:0;margin-right:0.5em}.to_t2{margin-left:0.5em;margin-right:0.5em;text-decoration:underline;cursor:pointer}.to_t3{margin-left:0.5em;margin-right:0;text-decoration:underline;cursor:pointer}.debugoff{display:none}.debugon{width:90%;position:fixed;bottom:1em;left:50%;transform:translate(-50%,-100%);z-index:9998}.debugtext{font-size:0.5em;color:#5B5B5B;text-align:center;word-wrap:break-word;overflow-wrap:break-word}.debugtextclick{text-decoration:underline;cursor:pointer;font-size:0.5em;color:#5B5B5B;text-align:center;word-wrap:break-word;overflow-wrap:break-word}</style>
+        <!-- <link rel="stylesheet" href="darklight.css"> -->
+        <style>@media (prefers-color-scheme:dark){.bodyy{background-color:#000}.to_text{color:#CFCFCF}.debugtext{color:#CFCFCF}.debugtextclick{color:#CFCFCF}}@media (prefers-color-scheme:light){.bodyy{background-color:#fff}.to_text{color:#5B5B5B}.debugtext{color:#5B5B5B}.debugtextclick{color:#5B5B5B}}</style>
+    </head>
+    <body class="bodyy">
+        <!-- Ciallo -->
+        <div class="divt">
+            <a class="title" id="redirectButton">Ciallo～(∠・ω&lt;)⌒★</a>
+        </div>
+        <!-- Toast引导提示 -->
+        <div id="toast" class="toast_off">
+            <div class="to_text">
+                <a class="to_t1">!: 试试点击Ciallo吧~</a><a id="debugon" class="to_t2">调试</a><a id="closeToast" class="to_t3">关闭</a>
+            </div>
+        </div>
+        <!-- 调试模式 -->
+        <div id="debugdiv" class="debugoff">
+            <a id="debugtextoff" class="debugtextclick">点击我，</a><a class="debugtext">或删除地址栏的「&debug」(如有)，即可退出调试模式。</a><a id="gorefValue" class="debugtext"></a>
+        </div>
+<!-- JavaScript -->
+<!-- 主要脚本 -->
+<script>
+// 获取地址栏中的参数值
+function getUrlParameter(name) {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  var results = regex.exec(location.search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+// 解码base64内容
+function decodeBase64(content) {
+  try {
+    return atob(content);
+  } catch (e) {
+    console.error('解码失败:', e);
+    return '';
+  }
+}
+
+// 在页面加载时获取 goref 参数的值并显示
+document.addEventListener('DOMContentLoaded', function() {
+  var goref = getUrlParameter('goref');
+  if (goref === '') {
+    goref = './nogoref.html';
+  } else {
+    // 解码base64内容
+    goref = decodeBase64(goref);
+    // 如果解码失败，则使用默认值
+    if (goref === '') {
+      goref = './nobase64.html';
+    }
+  }
+  document.getElementById('gorefValue').innerText = "目前goref值为 " + goref;
+});
+
+// 点击按钮时根据 goref 参数的值进行跳转
+document.getElementById('redirectButton').addEventListener('click', function() {
+  var goref = getUrlParameter('goref');
+  if (goref === '') {
+    goref = './nogoref.html';
+  } else {
+    // 解码base64内容
+    goref = decodeBase64(goref);
+    // 如果解码失败，则使用默认值
+    if (goref === '') {
+      goref = './nobase64.html';
+    }
+  }
+  window.location.href = goref;
+});
+</script>
+<!-- 旧的调试模式判定(未删除,保留) -->
+<script>
+// 获取当前页面地址
+var currentURL = window.location.href;
+
+// 检测地址中是否包含 debug=yes
+if (currentURL.indexOf('&debug') !== -1) {
+    document.getElementById("debugdiv").className = "debugon";
+} else {
+    // 否则什么都不做
+    // 可以在这里添加其他操作，或者留空
+}
+</script>
+<!-- 弹出提示&新的调试模式判定 -->
+<script>
+  // 等待页面加载完成后6秒弹出提示
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      document.getElementById("toast").className = "toast_on";
+    }, 1500); // 1.5秒后显示提示
+  });
+
+  // 你也可以添加关闭按钮，以便用户关闭提示
+  // 例如：
+  document.getElementById('closeToast').addEventListener('click', function() {
+    document.getElementById("toast").className = "toast_off";
+  });
+
+  document.getElementById('debugon').addEventListener('click', function() {
+    document.getElementById("debugdiv").className = "debugon";
+  });
+  
+  document.getElementById('debugtextoff').addEventListener('click', function() {
+    document.getElementById("debugdiv").className = "debugoff";
+  });
+</script>
+</body>
+</html>

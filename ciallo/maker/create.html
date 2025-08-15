@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中转页制作＊起始页</title>
+<link rel="stylesheet" href="./bootstrap.min.css">
+</head>
+
+<body>
+	<br/>
+	<div class="container">
+		<h3>＊起始 开始制作</h3>
+		<hr>
+		<div class="alert alert-info" role="alert">
+			<span>转换功能使用JavaScript，不上传云端。部分细节仍未完成，请耐心等待。</span>
+		</div>
+		<hr>
+		<div class="alert alert-link" role="alert">
+			<span id="qo">请选择暗色模式背景：</span>
+		</div>
+		<div>
+			<button onclick="o()" class="btn btn-outline-success btn-block mt-2">默认：极暗黑</botton>
+			<button onclick="oy()" class="btn btn-outline-success btn-block mt-2">OLED：纯黑</botton>
+		</div>
+		<hr>
+		<div class="alert alert-link" role="alert">
+			<span id="qc">请选择输入光标样式：</span>
+		</div>
+		<div>
+			<button onclick="c()" class="btn btn-outline-success btn-block mt-2">默认：下划线</botton>
+			<button onclick="ci()" class="btn btn-outline-success btn-block mt-2">普通：竖线</botton>
+		</div>
+		<hr>
+		<div class="alert alert-link" role="alert">
+			<span id="q64code">请选择目标地址格式：</span>
+		</div>
+		<div>
+			<button onclick="b64()" class="btn btn-outline-success btn-block mt-2">默认：Base64</botton>
+			<button onclick="code()" class="btn btn-outline-success btn-block mt-2">高级：访问口令</botton>
+		</div>
+		<hr>
+		<div id="csscode" style="display: none;">
+			<div class="alert alert-link" role="alert">
+				<span id="qcode">口令：请输入访问口令：</span>
+			</div>
+			<textarea id="code1" class="form-control" rows="1" placeholder="在此输入域..."></textarea>
+			<textarea id="code2" class="form-control mt-2" rows="1" placeholder="在此输入代号..."></textarea>
+			<button onclick="codey()" class="btn btn-outline-success btn-block mt-2">提交信息</botton>
+		</div>
+		<hr>
+		<div id="css64" style="display: none;">
+			<div class="alert alert-link" role="alert">
+				<span id="q64">Base64：请输入目标网址：</span>
+			</div>
+			<textarea id="641" class="form-control mt-2" rows="3" placeholder="在此输入目标地址..."></textarea>
+			<button onclick="b64y()" class="btn btn-outline-success btn-block mt-2">提交信息</botton>
+		</div>
+		<hr>
+		<div class="alert alert-link" role="alert">
+			<span id="qstart">制作中转页：</span>
+		</div>
+		<div>
+			<button onclick="start()" class="btn btn-outline-success btn-block mt-2">开始制作</botton>
+			<button onclick="copyText()" id="copyb" class="btn btn-outline-success btn-block mt-2">复制结果</botton>
+		</div>
+		<textarea id="rv1" onclick="lhref()" class="form-control mt-2" rows="3" placeholder="结果将输出在此..." readonly></textarea>
+		<h5 id="rv2" style="display: none;">./../err/aerr.html</h5>
+		<hr>
+<script src="making.js"></script>
+</body>
+
+</html>
