@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AES文本加解密工具</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        
+        textarea, input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        
+        textarea:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .encrypt-btn {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .decrypt-btn {
+            background: #4299e1;
+            color: white;
+        }
+        
+        .clear-btn {
+            background: #e53e3e;
+            color: white;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .result-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+        
+        .error {
+            background: #fed7d7;
+            border-left-color: #e53e3e;
+            color: #c53030;
+        }
+        
+        .success {
+            background: #c6f6d5;
+            border-left-color: #48bb78;
+            color: #2f855a;
+        }
+        
+        .key-info {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        .copy-btn {
+            margin-top: 10px;
+            background: #805ad5;
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+        
+        .api-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .api-title {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        
+        .api-code {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AES文本加解密工具</h1>
+        
+        <div class="input-group">
+            <label for="inputText">输入文本：</label>
+            <textarea id="inputText" rows="4" placeholder="请输入需要加密或解密的文本..."></textarea>
+        </div>
+        
+        <div class="input-group">
+            <label for="keyInput">密钥：</label>
+            <input type="password" id="keyInput" placeholder="请输入密钥（至少8位）" maxlength="32">
+            <div class="key-info">提示：密钥长度建议为16、24或32位字符</div>
+        </div>
+        
+        <div class="btn-group">
+            <button class="encrypt-btn" onclick="encryptText()">加密</button>
+            <button class="decrypt-btn" onclick="decryptText()">解密</button>
+            <button class="clear-btn" onclick="clearAll()">清空</button>
+        </div>
+        
+        <div id="result"></div>
+        
+        <div class="api-section">
+            <div class="api-title">解密API使用方法：</div>
+            <div class="api-code">// 解密函数调用示例<br>
+function decryptAPI(encryptedText, key) {<br>
+&nbsp;&nbsp;// 调用解密函数<br>
+&nbsp;&nbsp;return aesDecryptAPI(encryptedText, key);<br>
+}<br>
+<br>
+// 使用示例<br>
+decryptAPI("加密后的文本", "解密密钥")<br>
+.then(result => {<br>
+&nbsp;&nbsp;console.log("解密成功:", result);<br>
+})<br>
+.catch(error => {<br>
+&nbsp;&nbsp;console.log("解密失败:", error.message);<br>
+});</div>
+        </div>
+    </div>
+
+    <script>
+        // AES加密函数
+        async function aesEncrypt(text, key) {
+            try {
+                // 将密钥转换为32字节（AES-256）
+                const keyBuffer = await getKeyBuffer(key);
+                
+                // 创建AES密钥
+                const cryptoKey = await window.crypto.subtle.importKey(
+                    "raw",
+                    keyBuffer,
+                    { name: "AES-GCM" },
+                    false,
+                    ["encrypt"]
+                );
+                
+                // 将文本转换为字节数组
+                const encoder = new TextEncoder();
+                const data = encoder.encode(text);
+                
+                // 生成随机IV
+                const iv = window.crypto.getRandomValues(new Uint8Array(12));
+                
+                // 执行加密
+                const encrypted = await window.crypto.subtle.encrypt(
+                    {
+                        name: "AES-GCM",
+                        iv: iv,
+                        tagLength: 128
+                    },
+                    cryptoKey,
+                    data
+                );
+                
+                // 将IV和加密数据组合
+                const combined = new Uint8Array(iv.length + encrypted.byteLength);
+                combined.set(iv, 0);
+                combined.set(new Uint8Array(encrypted), iv.length);
+                
+                // 转换为Base64字符串
+                return arrayBufferToBase64(combined);
+                
+            } catch (error) {
+                throw new Error('加密失败: ' + error.message);
+            }
+        }
+        
+        // AES解密函数（内部使用）
+        async function aesDecryptInternal(encryptedText, key) {
+            try {
+                // 将Base64字符串转换为字节数组
+                const data = base64ToArrayBuffer(encryptedText);
+                
+                // 提取IV（前12字节）和加密数据
+                const iv = data.slice(0, 12);
+                const encryptedData = data.slice(12);
+                
+                // 将密钥转换为字节数组
+                const keyBuffer = await getKeyBuffer(key);
+                
+                // 创建AES密钥
+                const cryptoKey = await window.crypto.subtle.importKey(
+                    "raw",
+                    keyBuffer,
+                    { name: "AES-GCM" },
+                    false,
+                    ["decrypt"]
+                );
+                
+                // 执行解密
+                const decrypted = await window.crypto.subtle.decrypt(
+                    {
+                        name: "AES-GCM",
+                        iv: iv,
+                        tagLength: 128
+                    },
+                    cryptoKey,
+                    encryptedData
+                );
+                
+                // 将解密结果转换为文本
+                const decoder = new TextDecoder();
+                return decoder.decode(decrypted);
+                
+            } catch (error) {
+                throw new Error('解密失败');
+            }
+        }
+        
+        // 独立的解密API函数
+        async function aesDecryptAPI(encryptedText, key) {
+            try {
+                const result = await aesDecryptInternal(encryptedText, key);
+                return result;
+            } catch (error) {
+                // 解密失败时统一弹出密钥错误提示
+                alert('密钥错误');
+                throw new Error('密钥错误');
+            }
+        }
+        
+        // 将密钥转换为固定长度的字节数组
+        async function getKeyBuffer(key) {
+            // 如果密钥长度不足32字节，进行填充；如果超过32字节，进行截断
+            const encoder = new TextEncoder();
+            let keyBytes = encoder.encode(key);
+            
+            if (keyBytes.length > 32) {
+                // 如果超过32字节，截断到32字节
+                keyBytes = keyBytes.slice(0, 32);
+            } else if (keyBytes.length < 32) {
+                // 如果少于32字节，填充到32字节
+                const paddedKey = new Uint8Array(32);
+                paddedKey.set(keyBytes);
+                keyBytes = paddedKey;
+            }
+            
+            return keyBytes;
+        }
+        
+        // 将ArrayBuffer转换为Base64字符串
+        function arrayBufferToBase64(buffer) {
+            const bytes = new Uint8Array(buffer);
+            let binary = '';
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return btoa(binary);
+        }
+        
+        // 将Base64字符串转换为ArrayBuffer
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+        
+        // 加密按钮事件
+        async function encryptText() {
+            const inputText = document.getElementById('inputText').value;
+            const key = document.getElementById('keyInput').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!inputText) {
+                showResult('请输入需要加密的文本！', 'error');
+                return;
+            }
+            
+            if (!key) {
+                showResult('请输入密钥！', 'error');
+                return;
+            }
+            
+            if (key.length < 8) {
+                showResult('密钥长度至少需要8位！', 'error');
+                return;
+            }
+            
+            try {
+                showResult('加密中...', 'success');
+                const encrypted = await aesEncrypt(inputText, key);
+                showResult(`
+                    <div style="margin-bottom: 10px;"><strong>加密成功！</strong></div>
+                    <div style="font-family: monospace; word-break: break-all; white-space: pre-wrap;">${encrypted}</div>
+                    <button class="copy-btn" onclick="copyToClipboard('${encrypted}')">复制加密结果</button>
+                `, 'success');
+            } catch (error) {
+                showResult(error.message, 'error');
+            }
+        }
+        
+        // 解密按钮事件
+        async function decryptText() {
+            const inputText = document.getElementById('inputText').value;
+            const key = document.getElementById('keyInput').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!inputText) {
+                showResult('请输入需要解密的文本！', 'error');
+                return;
+            }
+            
+            if (!key) {
+                showResult('请输入密钥！', 'error');
+                return;
+            }
+            
+            if (key.length < 8) {
+                showResult('密钥长度至少需要8位！', 'error');
+                return;
+            }
+            
+            try {
+                showResult('解密中...', 'success');
+                const decrypted = await aesDecryptAPI(inputText, key);
+                showResult(`
+                    <div style="margin-bottom: 10px;"><strong>解密成功！</strong></div>
+                    <div style="font-family: monospace; word-break: break-all; white-space: pre-wrap;">${decrypted}</div>
+                    <button class="copy-btn" onclick="copyToClipboard('${decrypted}')">复制解密结果</button>
+                `, 'success');
+            } catch (error) {
+                // 解密失败时已经在API中弹出提示，这里不再处理
+            }
+        }
+        
+        // 显示结果
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <div class="result ${type}">
+                    <div class="result-title">${type === 'error' ? '❌ 错误' : '✅ 结果'}</div>
+                    <div>${message}</div>
+                </div>
+            `;
+        }
+        
+        // 清空所有内容
+        function clearAll() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('keyInput').value = '';
+            document.getElementById('result').innerHTML = '';
+        }
+        
+        // 复制到剪贴板
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('已复制到剪贴板！');
+            }).catch(function(err) {
+                // 如果navigator.clipboard不支持，使用旧方法
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    alert('已复制到剪贴板！');
+                } catch (err) {
+                    alert('复制失败，请手动复制！');
+                }
+            });
+        }
+        
+        // 密钥输入框回车事件
+        document.getElementById('keyInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                if (document.getElementById('inputText').value.includes('\n')) {
+                    decryptText();
+                } else {
+                    encryptText();
+                }
+            }
+        });
+        
+        // 全局可访问的解密API函数
+        window.aesDecryptAPI = aesDecryptAPI;
+    </script>
+</body>
+</html>
